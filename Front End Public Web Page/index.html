@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Falcon Industries</title>
+    <style>
+      :root {
+        --steel: #3f5c7a;
+        --steel-dark: #2d4258;
+        --steel-light: #dfe9f3;
+        --gray: #4d4d4d;
+        --gray-light: #eef1f4;
+        --text: #1c2430;
+        --white: #ffffff;
+        --shadow: rgba(18, 29, 39, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom, #edf2f7 0%, #dfe7ee 100%);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        background: var(--steel-dark);
+        color: var(--white);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+      }
+
+      .topbar-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 38px;
+      }
+
+      .tagline {
+        opacity: 0.9;
+      }
+
+      .contact-mini {
+        display: flex;
+        gap: 20px;
+      }
+
+      .site-header {
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(5px);
+        border-bottom: 1px solid rgba(63, 92, 122, 0.18);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 92px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand-mark {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--steel) 0%, #6f8ca6 100%);
+        position: relative;
+        box-shadow: 0 10px 25px rgba(63, 92, 122, 0.2);
+      }
+
+      .brand-mark::before {
+        content: "F";
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: var(--white);
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .brand-text {
+        line-height: 1.1;
+      }
+
+      .brand-text strong {
+        display: block;
+        font-size: 1.9rem;
+        letter-spacing: 0.04em;
+        color: var(--steel-dark);
+      }
+
+      .brand-text span {
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gray);
+      }
+
+      .nav-ribbon {
+        background: linear-gradient(90deg, #5d7387 0%, #4c647c 25%, #516d85 100%);
+        box-shadow: 0 8px 18px rgba(37, 55, 72, 0.12);
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-menu a {
+        display: inline-block;
+        color: var(--white);
+        padding: 18px 26px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: background 0.2s ease;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a:focus {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .hero {
+        background: linear-gradient(135deg, rgba(22, 35, 48, 0.76), rgba(63, 92, 122, 0.74)),
+          linear-gradient(120deg, #bec9d3 0%, #728ea6 20%, #3f5c7a 100%);
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 40px;
+        align-items: center;
+        padding: 72px 0 60px;
+      }
+
+      .hero-copy {
+        color: var(--white);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 0.76rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: clamp(2.5rem, 5vw, 4.3rem);
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-copy p {
+        font-size: 1.08rem;
+        max-width: 620px;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .cta-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .button,
+      .button-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 26px;
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button {
+        background: var(--white);
+        color: var(--steel-dark);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+      }
+
+      .button-secondary {
+        background: transparent;
+        color: var(--white);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .button:hover,
+      .button-secondary:hover {
+        transform: translateY(-1px);
+      }
+
+      .hero-panel {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 26px;
+        padding: 28px;
+        color: var(--white);
+        box-shadow: 0 20px 40px rgba(21, 33, 45, 0.2);
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 24px;
+      }
+
+      .stat {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 18px;
+        padding: 18px 16px;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.9rem;
+        margin-bottom: 6px;
+      }
+
+      main {
+        padding: 60px 0 80px;
+      }
+
+      section {
+        margin-bottom: 42px;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 34px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 2.8rem);
+        color: var(--steel-dark);
+      }
+
+      .section-header p {
+        margin: 10px auto 0;
+        max-width: 700px;
+        color: var(--gray);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 26px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(63, 92, 122, 0.08);
+        border-radius: 24px;
+        padding: 26px 22px;
+        box-shadow: 0 16px 28px var(--shadow);
+      }
+
+      .card-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--steel-light), #b9cfe0);
+        color: var(--steel-dark);
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        color: var(--steel-dark);
+        font-size: 1.4rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--gray);
+      }
+
+      .feature-band {
+        background: linear-gradient(135deg, rgba(63, 92, 122, 0.08), rgba(63, 92, 122, 0.15));
+        border: 1px solid rgba(63, 92, 122, 0.12);
+        border-radius: 28px;
+        padding: 18px 24px;
+      }
+
+      .feature-list {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .feature-list li {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        padding: 18px 16px;
+        text-align: center;
+        color: var(--gray);
+        font-weight: 600;
+      }
+
+      .contact-wrap {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .info-box {
+        background: linear-gradient(180deg, rgba(63, 92, 122, 0.96), rgba(45, 66, 88, 0.97));
+        color: var(--white);
+        border-radius: 28px;
+        padding: 30px 26px;
+        box-shadow: 0 18px 28px rgba(45, 66, 88, 0.18);
+      }
+
+      .info-box h3 {
+        margin-top: 0;
+        font-size: 1.8rem;
+      }
+
+      .info-box p,
+      .info-box li {
+        color: rgba(255, 255, 255, 0.88);
+      }
+
+      .info-box ul {
+        margin: 20px 0 0;
+        padding-left: 18px;
+        line-height: 2;
+      }
+
+      form {
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid rgba(63, 92, 122, 0.08);
+        border-radius: 28px;
+        padding: 30px 26px;
+        box-shadow: 0 16px 28px var(--shadow);
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+      }
+
+      label {
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--steel-dark);
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid rgba(63, 92, 122, 0.24);
+        border-radius: 12px;
+        background: var(--white);
+        padding: 12px 14px;
+        font: inherit;
+        color: var(--text);
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--steel-dark), var(--steel));
+        color: var(--white);
+        padding: 15px 28px;
+        font-size: 0.92rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      footer {
+        background: #2d3742;
+        color: rgba(255, 255, 255, 0.86);
+        padding: 28px 0 38px;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-brand {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--white);
+      }
+
+      .footer-address {
+        line-height: 1.8;
+      }
+
+      .footer-button {
+        background: linear-gradient(90deg, #8aa1b9, #3f5c7a);
+        color: var(--white);
+        padding: 13px 22px;
+        border-radius: 999px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .contact-wrap,
+        .cards,
+        .feature-list,
+        .field-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .header-inner {
+          flex-wrap: wrap;
+          padding: 18px 0;
+        }
+
+        .brand {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <div class="tagline">Precision. Reliability. Partnership.</div>
+        <div class="contact-mini">
+          <span>+1 (800) 555-0199</span>
+          <span>info@falconindustries.com</span>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand" aria-label="Falcon Industries logo and company name">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <strong>Falcon Industries</strong>
+            <span>Global Business Group</span>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav-ribbon" aria-label="Main navigation">
+        <div class="container">
+          <ul class="nav-menu">
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#services">Our Services</a></li>
+            <li><a href="#products">Our Products</a></li>
+            <li><a href="#locations">Our Locations</a></li>
+            <li><a href="#sales">Sales</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero" aria-label="Banner section">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Built for business</div>
+          <h1>Innovative solutions for a stronger tomorrow.</h1>
+          <p>
+            Falcon Industries delivers dependable operational expertise, modern manufacturing capabilities,
+            and strategic support to help corporate clients scale with confidence.
+          </p>
+          <div class="cta-row">
+            <a class="button" href="#contact">Contact Us</a>
+            <a class="button-secondary" href="#products">View Products</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Corporate highlights">
+          <h2>Performance that moves business forward.</h2>
+          <div class="stats">
+            <div class="stat">
+              <strong>28+</strong>
+              <span>Years in operation</span>
+            </div>
+            <div class="stat">
+              <strong>180</strong>
+              <span>Dedicated specialists</span>
+            </div>
+            <div class="stat">
+              <strong>42</strong>
+              <span>Global partners</span>
+            </div>
+            <div class="stat">
+              <strong>99.2%</strong>
+              <span>Client retention</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <main>
+      <div class="container">
+        <section id="team">
+          <div class="section-header">
+            <h2>Our Team</h2>
+            <p>Our experienced professionals partner with clients to solve complex challenges with clarity, discipline, and measurable outcomes.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon">01</div>
+              <h3>Leadership</h3>
+              <p>Senior executives guide strategic priorities, operational excellence, and sustainable growth across every market we serve.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">02</div>
+              <h3>Engineering</h3>
+              <p>Specialized technical teams design robust systems, optimize workflows, and deliver dependable execution from concept to completion.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">03</div>
+              <h3>Client Success</h3>
+              <p>Dedicated partnership managers ensure every engagement remains responsive, transparent, and focused on long-term value.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="services">
+          <div class="section-header">
+            <h2>Our Services</h2>
+            <p>We provide integrated support for enterprise operations, supply chain performance, and high-value project delivery.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon">S</div>
+              <h3>Operational Strategy</h3>
+              <p>Business process improvements, resource planning, and operational frameworks tailored to measurable success.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">M</div>
+              <h3>Manufacturing Support</h3>
+              <p>Quality control, production planning, and execution oversight designed to improve reliability and efficiency.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">P</div>
+              <h3>Project Management</h3>
+              <p>From delivery milestones to risk management, we coordinate every step of complex initiatives with precision.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="products">
+          <div class="section-header">
+            <h2>Our Products</h2>
+            <p>Our portfolio combines performance-driven manufacturing and smart business solutions built around efficiency and consistency.</p>
+          </div>
+          <div class="feature-band">
+            <ul class="feature-list">
+              <li>Industrial Components</li>
+              <li>Precision Systems</li>
+              <li>Custom Fabrication</li>
+              <li>Enterprise Support Packages</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="locations">
+          <div class="section-header">
+            <h2>Our Locations</h2>
+            <p>Falcon Industries supports clients through secure facilities and regional teams positioned for responsive service and collaboration.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon">NA</div>
+              <h3>North America</h3>
+              <p>Headquartered in the United States with regional operations designed for agile service and fast response.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">EU</div>
+              <h3>Europe</h3>
+              <p>Strategic partnerships and operational support across key industrial and commercial markets.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">AP</div>
+              <h3>Asia Pacific</h3>
+              <p>Regional coordination and product support aligned with global supply chain requirements and customer demand.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="sales">
+          <div class="section-header">
+            <h2>Sales</h2>
+            <p>Whether you are evaluating a new partnership or expanding an existing solution, our sales team is ready to align the right offering to your goals.</p>
+          </div>
+          <div class="cards">
+            <article class="card">
+              <div class="card-icon">$</div>
+              <h3>Business Development</h3>
+              <p>Connect with our team to discuss tailored product and service strategies that align with your operational needs.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">Q</div>
+              <h3>Quick Quotations</h3>
+              <p>Request pricing and scope guidance for current projects, custom builds, and long-term support programs.</p>
+            </article>
+            <article class="card">
+              <div class="card-icon">C</div>
+              <h3>Contract Support</h3>
+              <p>Our specialists help design procurement and implementation plans for businesses seeking dependable, scalable solutions.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="contact">
+          <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Let us know how we can help. Our team will respond with the information you need.</p>
+          </div>
+          <div class="contact-wrap">
+            <aside class="info-box">
+              <h3>Corporate Contact</h3>
+              <p>We partner with organizations looking for dependable execution, operational expertise, and strategic business support.</p>
+              <ul>
+                <li>Phone: +1 (800) 555-0199</li>
+                <li>Email: info@falconindustries.com</li>
+                <li>Hours: Monday - Friday, 8:00 AM - 6:00 PM</li>
+              </ul>
+            </aside>
+
+            <form action="#" method="post">
+              <div class="field-grid">
+                <div class="field">
+                  <label for="name">Name</label>
+                  <input id="name" name="name" type="text" placeholder="Your full name" />
+                </div>
+                <div class="field">
+                  <label for="email">Email</label>
+                  <input id="email" name="email" type="email" placeholder="name@company.com" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" placeholder="Company name" />
+              </div>
+
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your project or inquiry"></textarea>
+              </div>
+
+              <button class="submit-btn" type="submit">Send Inquiry</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="footer-brand">Falcon Industries™</div>
+        <div class="footer-address">
+          1200 Steel Avenue, Suite 400<br />
+          Pittsburgh, PA 15222<br />
+          United States
+        </div>
+        <a class="footer-button" href="#contact">Contact Us</a>
+      </div>
+    </footer>
+  </body>
+</html>
